@@ -1,0 +1,37 @@
+{
+  "header": {
+    "logout": "خروج",
+    "lang-btn": "English",
+    "cart": "عربة التسوق",
+    "shopping-cart": "عربة التسوق"
+  },
+  "validations": {
+   
+  },
+  "items":{
+    "aed":"د.إ",
+    "new-item":"صنف جديد",
+    "orderable":"قابل لطلب",
+    "spicy":"حار",
+    "vegetarian":"نباتي",
+    "celery":"كرفس",
+    "crustacean":"قشريات",
+    "eggs":"بيض",
+    "fish":"سمك",
+    "gluten":"غولتين",
+    "lupins":"ترمس",
+    "milk":"حليب",
+    "mustard":"خردل",
+    "nuts":"مكسرات",
+    "peanuts":"فول سوداني",
+    "sesame":"سمسم",
+    "shellfish":"محار",
+    "soya":"فول الصويا",
+    "sulphite":"كبريتات",
+    "nutritional-information":":معلومات غذائية"
+  },
+  "footer": {
+    "conditions": "الشروط و الأحكام",
+    "register": "سجل مطعمك"
+  }
+}

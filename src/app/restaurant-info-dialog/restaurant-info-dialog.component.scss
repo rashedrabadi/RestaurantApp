@@ -1,0 +1,159 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+::ng-deep {
+    .container {
+        @media (max-width: $phablet-min-width-minus) {
+            height: 500px;
+        }
+
+        .image-container {
+            .image {
+                height: 450px;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .close-icon {
+                position: absolute !important;
+                background-color: rgba(0, 0, 0, 0.498) !important;
+                backdrop-filter: blur(20px) !important;
+                margin: 10px;
+                color: white;
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: absolute;
+                top: 377px;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.498) !important;
+                backdrop-filter: blur(20px) !important;
+                position: relative;
+                top: 0;
+
+                @media (max-width: $desktop-min-width-minus) {
+                    flex-direction: column;
+                }
+
+                .flex {
+                    display: flex;
+                    align-items: center;
+
+                    @media (max-width: $desktop-min-width-minus) {
+                        flex-direction: column;
+                    }
+
+                    .title {
+                        font-size: 14px;
+                        color: white;
+                        margin-right: 10px;
+                        margin-bottom: 0;
+
+                    }
+
+                    .after {
+                        color: white;
+                        background-color: black;
+                        font-weight: bold;
+                        padding: 5px 15px;
+                        border-radius: 9px;
+                        margin-right: 20px;
+
+                        @media (max-width: $desktop-min-width-minus) {
+                            margin-right: 0px;
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+
+                .title {
+                    font-size: 24px;
+                    color: white;
+                    margin-left: 10px;
+                    margin-bottom: 0;
+                    text-align: center;
+                    @media (max-width: $phablet-min-width-minus) {
+                        font-size: 14px;
+                    }
+                }
+
+
+            }
+
+        }
+
+        .flex {
+            display: flex;
+
+            @media (max-width: $phablet-min-width-minus) {
+                flex-direction: column;
+            }
+
+            .table {
+                margin: 0px 20px 20px 20px;
+
+
+                td,
+                th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+
+                    @media (max-width: $phablet-min-width-minus) {
+                        font-size: 10px;
+                    }
+                }
+
+                tr:nth-child(even) {
+                    background-color: #dddddd;
+
+                }
+            }
+
+            .header {
+                display: flex;
+                flex-direction: column;
+            }
+
+        }
+
+        .branches {
+            margin: 0px 20px 20px 20px;
+
+            .bold {
+                font-weight: 600;
+            }
+
+        }
+
+        .map {
+            padding: 0 10px;
+            margin-bottom: 20px;
+
+            google-map {
+                width: 100% !important;
+                display: block !important;
+
+                .map-container {
+                    width: 100% !important;
+
+                    @media (max-width: $phablet-min-width-minus) {
+                        height: 250px !important;
+                    }
+
+                }
+            }
+        }
+
+        .desc {
+            @media (max-width: $phablet-min-width-minus) {
+                font-size: 11px;
+                line-height: 17px;
+                padding: 12px;
+            }
+        }
+    }
+}

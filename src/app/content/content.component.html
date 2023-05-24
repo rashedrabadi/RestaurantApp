@@ -1,0 +1,97 @@
+<mat-button-toggle-group *ngIf="selectedBranch" class="view-group" name="favoriteColor" aria-label="Favorite Color">
+  <mat-button-toggle (click)="changeView(1)" id="view-1"
+    value="1"><mat-icon>vertical_split</mat-icon></mat-button-toggle>
+  <mat-button-toggle (click)="changeView(2)" id="view-2" value="2"><mat-icon>view_module</mat-icon></mat-button-toggle>
+  <mat-button-toggle (click)="changeView(3)" id="view-3" value="3"><mat-icon>reorder</mat-icon></mat-button-toggle>
+</mat-button-toggle-group>
+<div class="container1" [class.arabic]="language==='ar'"
+  *ngIf="view1===true && view2===false && view3===false && selectedBranch">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="card-container" [class.arabic]="language==='ar'" *ngIf="!isLoading">
+
+    <mat-card (click)="openDialog(item)" *ngFor="let item of menu" class="example-card">
+      <img class="image" mat-card-image [src]="item.image?item.image:restaurantImage" alt="Photo of a Shiba Inu">
+      <mat-card-header class="card-header">
+        <mat-card-subtitle class="card-subtitle">
+          <div class="flex" [class.arabic]="language==='ar'">
+            <mat-card-title class="card-title">{{item.name}}</mat-card-title>
+            <div class="status" [class.notAvailable]="!item.available"></div>
+          </div>
+          <div class="pops-container" [class.arabic]="language==='ar'">
+            <span class="before" *ngIf="item.priceBeforeDiscount && item.priceBeforeDiscount>0">{{item.priceBeforeDiscount}} AED</span>
+            <span class="after">{{item.price}} AED</span>
+            <span class="newItem" [class.arabic]="language==='ar'"
+              *ngIf="item.newItem===true">{{'items.new-item'|translate}}</span>
+            <span class="orderable" [class.arabic]="language==='ar'"
+              *ngIf="item.orderable===true">{{'items.orderable'|translate}}</span>
+          </div>
+        </mat-card-subtitle>
+        <mat-card-content class="card-content">
+          <p [class.arabic]="language==='ar'">
+            {{item.description}}
+          </p>
+        </mat-card-content>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="container2" *ngIf="view1===false && view2===true && view3===false && selectedBranch">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="card-container" [class.arabic]="language==='ar'" *ngIf="!isLoading">
+    <div class="inner-card-container" *ngFor="let item of menu">
+      <mat-card (click)="openDialog(item)" class="example-card">
+        <img class="image" mat-card-image
+        [src]="item.image?item.image:restaurantImage"
+          alt="Photo of a Shiba Inu">
+        <mat-card-header class="card-header">
+          <mat-card-subtitle class="card-subtitle">
+            <div class="flex" [class.arabic]="language==='ar'">
+              <mat-card-title [class.arabic]="language==='ar'" class="card-title">{{item.name}}</mat-card-title>
+              <div class="status" [class.arabic]="language==='ar'" [class.notAvailable]="!item.available"></div>
+            </div>
+            <div class="pops-container" [class.arabic]="language==='ar'">
+              <span class="before" *ngIf="item.priceBeforeDiscount && item.priceBeforeDiscount>0">{{item.priceBeforeDiscount}} AED</span>
+              <span class="after">{{item.price}} AED</span>
+              <span class="newItem" [class.arabic]="language==='ar'"
+                *ngIf="item.newItem===true">{{'items.new-item'|translate}}</span>
+              <span class="orderable" [class.arabic]="language==='ar'"
+                *ngIf="item.orderable===true">{{'items.orderable'|translate}}</span>
+            </div>
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <mat-card-content class="card-content">
+        <p [class.arabic]="language==='ar'">
+          {{item.description}}
+        </p>
+      </mat-card-content>
+    </div>
+  </div>
+</div>
+<div class="container3" *ngIf="view1===false && view2===false && view3===true && selectedBranch">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="card-container" [class.arabic]="language==='ar'" *ngIf="!isLoading">
+    <mat-card (click)="openDialog(item)" *ngFor="let item of menu" class="example-card">
+      <mat-card-header class="card-header">
+        <mat-card-subtitle class="card-subtitle">
+          <div class="flex" [class.arabic]="language==='ar'">
+            <mat-card-title class="card-title">{{item.name}}</mat-card-title>
+            <div class="status" [class.notAvailable]="!item.available"></div>
+          </div>
+          <div class="pops-container">
+            <span class="before" *ngIf="item.priceBeforeDiscount && item.priceBeforeDiscount>0">{{item.priceBeforeDiscount}} AED</span>
+            <span class="after">{{item.price}} AED</span>
+            <span class="newItem" [class.arabic]="language==='ar'"
+              *ngIf="item.newItem===true">{{'items.new-item'|translate}}</span>
+            <span class="orderable" *ngIf="item.orderable===true">{{'items.orderable'|translate}}</span>
+          </div>
+        </mat-card-subtitle>
+        <mat-card-content class="card-content">
+          <p [class.arabic]="language==='ar'">
+            {{item.description}}
+          </p>
+        </mat-card-content>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>

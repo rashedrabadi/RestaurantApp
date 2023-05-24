@@ -1,0 +1,322 @@
+@function rem-calc($size) {
+    $remSize: calc($size / 16px);
+    @return $remSize * 1rem;
+  }
+  
+  @mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  
+  @mixin font-size($size) {
+    font-size: rem-calc($size);
+  }
+  
+  @mixin button-theme($button-color) {
+    border-color: transparent;
+    background-color: $button-color;
+  
+    &:hover {
+      background-color: shade($button-color, 20%);
+    }
+  
+    &:active {
+      background-color: shade($button-color, 20%);
+    }
+  }
+  
+  @mixin alert-theme($alert-color) {
+    background-color: $alert-color;
+    color: white;
+  }
+  
+  @mixin css-triangle(
+    $color,
+    $direction,
+    $size: 6px,
+    $position: absolute,
+    $round: false
+  ) {
+    @include pseudo($pos: $position);
+    width: 0;
+    height: 0;
+    @if $round {
+      border-radius: 3px;
+    }
+    @if $direction == down {
+      border-left: $size solid transparent;
+      border-right: $size solid transparent;
+      border-top: $size solid $color;
+      margin-top: 0 - round($size / 2.5);
+    } @else if $direction == up {
+      border-left: $size solid transparent;
+      border-right: $size solid transparent;
+      border-bottom: $size solid $color;
+      margin-bottom: 0 - round($size / 2.5);
+    } @else if $direction == right {
+      border-top: $size solid transparent;
+      border-bottom: $size solid transparent;
+      border-left: $size solid $color;
+      margin-right: -$size;
+    } @else if $direction == left {
+      border-top: $size solid transparent;
+      border-bottom: $size solid transparent;
+      border-right: $size solid $color;
+      margin-left: -$size;
+    }
+  }
+  
+  @mixin create-mq($breakpoint) {
+    @if ($breakpoint == 0) {
+      @content;
+    } @else {
+      @media screen and (min-width: ($breakpoint *1px)) {
+        @content;
+      }
+    }
+  }
+  
+  @mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
+    @include create-mq($breakpoint) {
+      &#{$modifier}-offset-0 {
+        margin-left: 0;
+      }
+      @for $i from 1 through $grid-cols {
+        &#{$modifier}-#{$i} {
+          flex-basis: calc(99.8 / ($grid-cols / $i)) * 1%;
+          padding: 0 10px;
+        }
+        &#{$modifier}-offset-#{$i} {
+          margin-left: calc(99.8 / ($grid-cols / $i)) * 1%;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+  
+  // Generates spacing classes in this format: 5 px difference,
+  // margin-{direction}-{5 > 100) eg: margin-left-40
+  // padding-{direction}-{5 > 100) eg: padding-top-25
+  @mixin generate-spacing-classes(
+    $default-space-amounts-with-direction: (
+      5 left left,
+      10 left left,
+      15 left left,
+      20 left left,
+      25 left left,
+      30 left left,
+      35 left left,
+      40 left left,
+      45 left left,
+      50 left left,
+      55 left left,
+      60 left left,
+      65 left left,
+      70 left left,
+      75 left left,
+      80 left left,
+      85 left left,
+      90 left left,
+      95 left left,
+      100 left left,
+    )
+  ) {
+    @each $space in $default-space-amounts-with-direction {
+      .margin-#{nth($space, 3)}-#{nth($space, 1)} {
+        margin-#{nth($space, 2)}: #{nth($space, 1)}px;
+      }
+    }
+    @each $space in $default-space-amounts-with-direction {
+      .padding-#{nth($space, 3)}-#{nth($space, 1)} {
+        padding-#{nth($space, 2)}: #{nth($space, 1)}px;
+      }
+    }
+  }
+  
+  @mixin create-mobile-hidden-classes($display, $is-child: true) {
+    @if ($is-child == true) {
+      .mobile-hidden {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: $display;
+        }
+      }
+      .mobile-hidden-block {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: block;
+        }
+      }
+      .mobile-hidden-inline-block {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: inline-block;
+        }
+      }
+      .mobile-hidden-inline {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: inline;
+        }
+      }
+    } @else {
+      &.mobile-hidden {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: $display;
+        }
+      }
+      &.mobile-hidden-block {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: block;
+        }
+      }
+      &.mobile-hidden-inline-block {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: inline-block;
+        }
+      }
+      &.mobile-hidden-inline {
+        display: none;
+        @media (#{$larger-than-tablet}) {
+          display: inline;
+        }
+      }
+    }
+  }
+  
+  @mixin create-mobile-shown-classes($display, $is-child: true) {
+    @if ($is-child == true) {
+      .mobile-shown {
+        display: $display;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+      .mobile-shown-block {
+        display: block;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+      .mobile-shown-inline-block {
+        display: inline-block;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+      .mobile-shown-inline {
+        display: inline;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+    } @else {
+      &.mobile-shown {
+        display: $display;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+      &.mobile-shown-block {
+        display: block;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+      &.mobile-shown-inline-block {
+        display: inline-block;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+      &.mobile-shown-inline {
+        display: inline;
+        @media (#{$larger-than-tablet}) {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  @mixin create-tablet-hidden-classes($display, $is-child: true) {
+    @if ($is-child == true) {
+      .tablet-hidden {
+        display: none;
+        @media (#{$larger-than-desktop}) {
+          display: $display;
+        }
+      }
+    } @else {
+      &.tablet-hidden {
+        display: none;
+        @media (#{$larger-than-desktop}) {
+          display: $display;
+        }
+      }
+    }
+  }
+  
+  @mixin create-tablet-shown-classes($display, $is-child: true) {
+    @if ($is-child == true) {
+      .tablet-shown {
+        display: $display;
+        @media (#{$larger-than-desktop}) {
+          display: none;
+        }
+      }
+    } @else {
+      &.tablet-shown {
+        display: $display;
+        @media (#{$larger-than-desktop}) {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  @mixin push--auto {
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+  
+  @mixin center($position) {
+    position: absolute;
+  
+    @if $position == "vertical" {
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    } @else if $position == "horizontal" {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translate(-50%);
+    } @else if $position == "both" {
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  @function image-url($url) {
+    @return url($assets-path + $url);
+  }
+  
+  @mixin account-border($direction) {
+    border-#{$direction}: 1px solid $grey;
+    @media (#{$larger-than-mobile}) {
+      border-#{$direction}: 1px solid $grey;
+    }
+  }
+  

@@ -1,0 +1,9 @@
+<div class="container" *ngIf="!isLoading"
+    [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}">
+
+    <p class="par" [ngStyle]="{'color':colors.colorTertiary}">© 2023 TheMenu.ae.</p>
+
+    <a class="url" [ngStyle]="{'color':colors.colorTertiary}" (click)="goToLink('https://themenu.ae/')">
+        {{'footer.register'|translate}}</a>
+    <p class="par2" [ngStyle]="{'color':colors.colorTertiary}" (click)="goToLink('https://m.themenu.ae/pages/1')">{{'footer.conditions'|translate}}</p>
+</div>

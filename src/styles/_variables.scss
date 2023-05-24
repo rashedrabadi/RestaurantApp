@@ -1,0 +1,71 @@
+// Breakpoints
+$larger-than-mobile: "min-width: 426px" !default;
+$larger-than-phablet: "min-width: 640px" !default;
+$larger-than-phablet-plus-one: "min-width: 641px" !default;
+$larger-than-tablet: "min-width: 750px" !default;
+$larger-than-desktop: "min-width: 1025px" !default;
+$larger-than-desktophd: "min-width: 1200px" !default;
+$desktop-1399-break-point: "1399.9px";
+$old-mobile-min: "320px";
+$mobile-min: "426px";
+$phablet-min-width: "640px";
+$phablet-min-width-plus-one: "641px";
+$phablet-min-width-minus-one:"639px";
+$phablet-min-width-minus: "639.9px";
+$smaller-than-ipad:"max-width: 832.9px" !default;
+$mobile-min-width-minus: "414px";
+$desktop-min-width-minus: "1024.9px";
+$tablet-min-width: "751px";
+$tablet-min-width-minus: "749.9px";
+$ipad-min-width: "835px";
+$ipad-min-width-minus: "833.9px";
+$desktop-min-width: "1025px";
+$desktophd-min-width: "1200px";
+$iphone-max-width: "475.9px";
+$desktop-width-minus-1366-minus:"1366px";
+$desktop-width-minus-hd-minus:"1920px";
+$desktop-width-minus-2k-minus:"2560px";
+// Responsive Grid System
+$grid__bp-sm: 426;
+$grid__bp-md: 640;
+$grid__bp-lg: 750;
+$grid__bp-xl: 1025;
+$grid__bp-max: 1360;
+$grid__cols: 12;
+
+// Google Fonts Import
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+
+// Font weights
+$light: 300;
+$regular: 400;
+$bold: 600;
+
+// Base Font
+/*$base-font-family: "bryant", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;*/
+$base-font-family: "Sansation", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$base-font-family-bold: "Sansation-bold", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$base-font-weight: $regular;
+$base-font-size: 14px;
+$base-line-height: 1.4;
+$secondary-font-family: "bryant", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$secondary-font-family-bold: "bryant-bold", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$cookies-font-family: "cookiesAndCream", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$proxima-font-family: "proxima-nova", sans-serif !default;
+$lato-font-family: "Lato", sans-serif !default;
+// Fixed Font
+$fixed-font-family: monospace;
+$fixed-font-size: 85%;
+$fixed-line-height: $base-line-height;
+
+// Headings
+$header-font-family: "bryant-bold", "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$header-font-weight: $bold;
+
+// Buttons
+$button-font-family: "bryant", "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$button-font-weight: $bold;
+
+// Nav
+$nav-font-family: "bryant", "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$nav-font-weight: $bold;

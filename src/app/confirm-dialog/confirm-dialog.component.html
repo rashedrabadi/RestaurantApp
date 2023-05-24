@@ -1,0 +1,15 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="header" *ngIf="!isLoading">
+    <h2 mat-dialog-title>{{data?.title}}</h2>
+    <button mat-icon-button [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    {{data?.message}}
+  </div>
+  <div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button (click)="onChoice(false)" [mat-dialog-close]="false">{{data?.cancelText}}</button>
+    <button mat-raised-button [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}" color="primary" (click)="onChoice(true)" [mat-dialog-close]="true">{{data?.confirmText}}</button>
+  </div>
+  

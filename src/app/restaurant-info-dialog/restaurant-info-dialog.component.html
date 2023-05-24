@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="image-container">
+        <button class="close-icon" mat-icon-button [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+        <div class="header">
+            <h2 mat-dialog-title class="title">{{data?.name}} Information</h2>
+            <div class="flex">
+                <h3 class="title" *ngIf="orderCondition.value === 'delivery'">Delivery:
+                </h3>
+                <h3 class="title" *ngIf="orderCondition.value === 'pickup'">Picking up Your Meal</h3>
+                <h3 class="title" *ngIf="orderCondition.value === 'dineIn'">Dining in the restaurant</h3>
+                <span class="after" *ngIf="orderCondition.value === 'delivery'">{{deliveryPrice}} AED</span>
+            </div>
+
+        </div>
+    </div>
+    <div class="desc" mat-dialog-content>
+        {{data?.description}}
+    </div>
+    <div class="map">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <google-map  (mapClick)="drag($event)" *ngIf="!isLoading" [center]="center"
+            [zoom]="zoom">
+            <map-marker #marker="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
+                [label]="marker.label" [title]="marker.title" [options]="marker.options"></map-marker>
+            <map-info-window>{{data?.name}}</map-info-window>
+            <map-polygon [paths]="vertices"></map-polygon>
+        </google-map>
+    </div>
+    <div class="flex">
+        <table class="table" *ngIf="weekdays.length>0"
+            [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}">
+            <tr class="table-head">
+                <th>Day Of Week</th>
+                <th>Opens At</th>
+                <th>Closes At</th>
+            </tr>
+            <tr [ngStyle]="{'background-color':colors.colorSecondary,'color':colors.colorTertiary}">
+                <td>Saturday</td>
+                <td>{{weekdays[0].dayIsOpen? weekdays[0].opensAt:'Closed'}}</td>
+                <td>{{weekdays[0].dayIsOpen? weekdays[0].closesAt:'Closed'}}</td>
+            </tr>
+            <tr>
+                <td>Sunday</td>
+                <td>{{weekdays[1].dayIsOpen? weekdays[1].opensAt:'Closed'}}</td>
+                <td>{{weekdays[1].dayIsOpen? weekdays[1].closesAt:'Closed'}}</td>
+            </tr>
+            <tr [ngStyle]="{'background-color':colors.colorSecondary,'color':colors.colorTertiary}">
+                <td>Monday</td>
+                <td>{{weekdays[2].dayIsOpen? weekdays[2].opensAt:'Closed'}}</td>
+                <td>{{weekdays[2].dayIsOpen? weekdays[2].closesAt:'Closed'}}</td>
+            </tr>
+            <tr>
+                <td>Tuesday</td>
+                <td>{{weekdays[3].dayIsOpen? weekdays[3].opensAt:'Closed'}}</td>
+                <td>{{weekdays[3].dayIsOpen? weekdays[3].closesAt:'Closed'}}</td>
+            </tr>
+            <tr [ngStyle]="{'background-color':colors.colorSecondary,'color':colors.colorTertiary}">
+                <td>Wednesday</td>
+                <td>{{weekdays[4].dayIsOpen? weekdays[4].opensAt:'Closed'}}</td>
+                <td>{{weekdays[4].dayIsOpen? weekdays[4].closesAt:'Closed'}}</td>
+            </tr>
+            <tr>
+                <td>Thursday</td>
+                <td>{{weekdays[5].dayIsOpen? weekdays[5].opensAt:'Closed'}}</td>
+                <td>{{weekdays[5].dayIsOpen? weekdays[5].closesAt:'Closed'}}</td>
+            </tr>
+            <tr [ngStyle]="{'background-color':colors.colorSecondary,'color':colors.colorTertiary}">
+                <td>Friday</td>
+                <td>{{weekdays[6].dayIsOpen? weekdays[6].opensAt:'Closed'}}</td>
+                <td>{{weekdays[6].dayIsOpen? weekdays[6].closesAt:'Closed'}}</td>
+            </tr>
+        </table>
+        <div class="restaurant-info">
+            <mat-radio-group class="header" aria-label="Extras">
+                <mat-radio-button disabled="{{!data.pickup || data.disableOrdering}}" (change)="requiredSet($event)"
+                    value="pickup">Pick up Order</mat-radio-button>
+                <mat-radio-button (change)="requiredSet($event)" value="delivery">Delivery</mat-radio-button>
+                <mat-radio-button disabled="{{!data.dineIn || data.disableOrdering}}" (change)="requiredSet($event)"
+                    value="dineIn">Dine in restaurant</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+
+    <div mat-dialog-actions [align]="'end'">
+        <button [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}"
+            *ngIf="!!orderCondition.value" mat-raised-button color="primary" (click)="onChoice(true)"
+            [mat-dialog-close]="true">Confirm
+            Branch</button>
+    </div>
+</div>
