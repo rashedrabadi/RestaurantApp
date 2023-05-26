@@ -15,7 +15,7 @@ export class RestaurantService {
 
   getRestaurant(lang:string) {
     const reqBody = {
-      "applicationId": "A0mrJe7cKtDjdEbxGIpaL121Xar4zGD1kfQH4abt4p8="//move to env
+      "applicationId": environment.APPLICATION_ID
     }
     if (lang === 'en') {
       return this.http.post<{
