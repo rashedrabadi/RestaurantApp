@@ -1,0 +1,37 @@
+{
+  "header": {
+    "logout": "Logout",
+    "lang-btn": "العربية",
+    "cart":"Cart",
+    "shopping-cart":"Shopping Cart"
+  },
+  "validations": {
+   
+  },
+  "items":{
+    "aed":"AED",
+    "new-item":"New Item",
+    "orderable":"Orderable",
+    "spicy":"Spicy",
+    "vegetarian":"Vegetarian",
+    "celery":"Celery",
+    "crustacean":"Crustacean",
+    "eggs":"Eggs",
+    "fish":"Fish",
+    "gluten":"Gluten",
+    "lupins":"Lupins",
+    "milk":"Milk",
+    "mustard":"Mustard",
+    "nuts":"Nuts",
+    "peanuts":"Peanuts",
+    "sesame":"Sesame",
+    "shellfish":"Shellfish",
+    "soya":"Soya",
+    "sulphite":"Sulphite",
+    "nutritional-information":"Nutritional information"
+  },
+  "footer": {
+    "conditions": "Terms & Conditions",
+    "register":"Register your restaurant"
+  }
+}

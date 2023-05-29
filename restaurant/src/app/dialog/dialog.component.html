@@ -1,0 +1,112 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading" class="container">
+    <div class="image-container">
+        <button class="close-icon" mat-icon-button [mat-dialog-close]="false">
+            <mat-icon>close</mat-icon>
+        </button>
+        <div class="header">
+            <h2 mat-dialog-title class="title">{{data?.name}}</h2>
+            <span class="after">{{totalMealPrice}} AED</span>
+        </div>
+    </div>
+    <div mat-dialog-content>
+        {{data?.description}}
+    </div>
+
+    <div class="nutrition">
+        <h1 [class.arabic]="language==='ar'"
+            *ngIf="!!data.calories || !!data.carb || !!data.kcl || !!data.protein || !!data.sugar || !!data.fat || !!data.fiber">
+            {{'items.nutritional-information'|translate}}</h1>
+        <hr
+            *ngIf="!!data.calories || !!data.carb || !!data.kcl || !!data.protein || !!data.sugar || !!data.fat || !!data.fiber">
+        <div class="condition" *ngIf="!!data.spicy || !!data.vegetarian" [class.arabic]="language==='ar'">
+            <span class="spicy" *ngIf="data.spicy===true">{{'items.spicy'|translate}}</span>
+            <span class="vegetarian" *ngIf="data.vegetarian===true">{{'items.vegetarian'|translate}}</span>
+        </div>
+        <hr *ngIf="!!data.spicy || !!data.vegetarian">
+        <div class="condition"
+            *ngIf="!!data.celery || !!data.crustacean || !!data.eggs || !!data.fish || !!data.gluten || !!data.lupins
+         || !!data.milk || !!data.mustard || !!data.nuts || !!data.peanuts || !!data.shellfish || !!data.soya || !!data.sulphite"
+            [class.arabic]="language==='ar'">
+            <span class="set" *ngIf="data.celery===true">{{'items.celery'|translate}}</span>
+            <span class="set" *ngIf="data.crustacean===true">{{'items.crustacean'|translate}}</span>
+            <span class="set" *ngIf="data.eggs===true">{{'items.eggs'|translate}}</span>
+            <span class="set" *ngIf="data.fish===true">{{'items.fish'|translate}}</span>
+            <span class="set" *ngIf="data.gluten===true">{{'items.gluten'|translate}}</span>
+            <span class="set" *ngIf="data.lupins===true">{{'items.lupins'|translate}}</span>
+            <span class="set" *ngIf="data.milk===true">{{'items.milk'|translate}}</span>
+            <span class="set" *ngIf="data.mustard===true">{{'items.mustard'|translate}}</span>
+            <span class="set" *ngIf="data.nuts===true">{{'items.nuts'|translate}}</span>
+            <span class="set" *ngIf="data.peanuts===true">{{'items.peanuts'|translate}}</span>
+            <span class="set" *ngIf="data.sesame===true">{{'items.sesame'|translate}}</span>
+            <span class="set" *ngIf="data.shellfish===true">{{'items.shellfish'|translate}}</span>
+            <span class="set" *ngIf="data.soya===true">{{'items.soya'|translate}}</span>
+            <span class="set" *ngIf="data.sulphite===true">{{'items.sulphite'|translate}}</span>
+        </div>
+        <hr *ngIf="
+        !!data.celery || !!data.crustacean
+        || !!data.eggs|| !!data.fish
+        || !!data.gluten|| !!data.lupins
+        || !!data.milk|| !!data.mustard
+        || !!data.nuts|| !!data.peanuts
+        || !!data.sesame|| !!data.shellfish
+        || !!data.soya|| !!data.sulphite">
+    </div>
+
+
+    <table class="table" *ngIf="!!data.calories && !!data.carb && !!data.protein && !!data.fat && !!data.fiber">
+        <tr class="table-head" [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}">
+            <th *ngIf="!!data.calories" >Calories</th>
+            <th *ngIf="!!data.carb">Carb</th>
+            <th *ngIf="!!data.protein">Protein</th>
+            <th *ngIf="!!data.fat">Fat</th>
+            <th *ngIf="!!data.fiber">Fiber</th>
+        </tr>
+        <tr>
+            <td *ngIf="!!data.calories"> {{data.calories}}</td>
+            <td *ngIf="!!data.carb">{{data?.carb}}</td>
+            <td *ngIf="!!data.protein">{{data.protein}}</td>
+            <td *ngIf="!!data.fat">{{data?.fat}}</td>
+            <td *ngIf="!!data.fiber">{{data?.fiber}}</td>
+        </tr>
+    </table>
+    <div class="options">
+        <h3 class="bold" *ngIf="data?.extraSections?.required.length>0">Select your options:</h3>
+        <div class="required-options" *ngFor="let requiredOption of data?.extraSections?.required">
+            <h4><b>{{requiredOption.name}} (Required)</b></h4>
+            <mat-radio-group class="header" aria-label="Extras">
+                <mat-radio-button (change)="requiredSet($event)" *ngFor="let option of requiredOption.extraItems"
+                    value="{{option.id}}">{{option.name}} +AED {{option.price}}</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="optional-options" *ngFor="let optionalOption of data?.extraSections?.optional">
+            <h4><b>{{optionalOption.name}}</b></h4>
+            <mat-checkbox (change)="optionalSet($event)" value="{{option.id}}"
+                *ngFor="let option of optionalOption.extraItems" class="example-margin">{{option.name}} +AED
+                {{option.price}}</mat-checkbox>
+        </div>
+        <div class="quantity" *ngIf="totalRequiredItems.length>0">
+            <h4><b>Quantity</b></h4>
+            <div class="ctrl">
+                <button [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}"
+                    (click)="decrement()" mat-fab disabled="{{quantity<2}}" [class.disabled]="quantity<2"
+                    class="ctrl-btn" color="primary" aria-label="button">
+                    -
+                </button>
+                <input class="ctrl-input" disabled placeholder="Add Quantity" [value]="quantity">
+                <button [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}"
+                    (click)="increment()" mat-fab class="ctrl-btn" color="primary" aria-label="button">
+                    +
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button (click)="onChoice(false)" [mat-dialog-close]="false">Cancel</button>
+        <button *ngIf="totalRequiredItems.length>0||data.extraSections.required.length===0"
+            [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}" mat-raised-button
+            color="primary" (click)="onChoice(true)" [mat-dialog-close]="true">Confirm
+            Order</button>
+    </div>
+</div>

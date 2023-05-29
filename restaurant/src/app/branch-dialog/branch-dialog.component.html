@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container" fxFlexFill>
+    <mat-sidenav class="sidenav" [class.arabic]="language==='ar'" #sidenav>
+      <mat-nav-list>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content" fxFlexFill>
+        <div class="header">
+            <h2 mat-dialog-title class="title">Pick Location</h2>
+        </div>
+      <div class="branch-content">
+       
+        <div class="container" [class.arabic]="language==='ar'">
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+          <div class="card-container" [class.arabic]="language==='ar'" *ngIf="!isLoading">
+            <mat-card (click)="openBranch(branch)" [mat-dialog-close]="true" *ngFor="let branch of branches" class="example-card">
+              <img class="image" mat-card-image src="assets/images/map-bg.jpg" alt="map-bg">
+              <mat-card-header class="card-header">
+                <mat-card-subtitle class="card-subtitle">
+                  <div class="flex" [class.arabic]="language==='ar'">
+                    <mat-card-title class="card-title">{{branch.name}}</mat-card-title>
+                    <div class="inner-flex">
+                      <div class="content">{{branch.isOpenNow? 'Open':'Closed'}}</div>
+                      <div class="status" [class.notAvailable]="!branch.isOpenNow"></div>
+                    </div>
+                  </div>
+                  <div class="pops-container" [class.arabic]="language==='ar'">
+                    <span class="newItem" [class.arabic]="language==='ar'"
+                      *ngIf="branch.newItem===true">{{'items.new-item'|translate}}</span>
+                    <span class="orderable" [class.arabic]="language==='ar'"
+                      *ngIf="branch.orderable===true">{{'items.orderable'|translate}}</span>
+                  </div>
+                </mat-card-subtitle>
+                <mat-card-content class="card-content">
+                  <p [class.arabic]="language==='ar'">
+                    {{branch.phoneNumber}}
+                  </p>
+                </mat-card-content>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

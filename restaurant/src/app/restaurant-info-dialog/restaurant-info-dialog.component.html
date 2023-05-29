@@ -20,13 +20,12 @@
     </div>
     <div class="map">
         <mat-spinner *ngIf="isLoading"></mat-spinner>
-        <google-map  (mapClick)="drag($event)" *ngIf="!isLoading" [center]="center"
-            [zoom]="zoom">
+        <google-map (mapClick)="drag($event)" *ngIf="!isLoading" [center]="center" [zoom]="zoom">
             <map-polygon [paths]="vertices"></map-polygon>
             <map-marker #marker="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
                 [label]="marker.label" [title]="marker.title" [options]="marker.options"></map-marker>
             <map-info-window>{{data?.name}}</map-info-window>
-           
+
         </google-map>
     </div>
     <div class="flex">
@@ -77,7 +76,9 @@
             <mat-radio-group class="header" aria-label="Extras">
                 <mat-radio-button disabled="{{!data.pickup || data.disableOrdering}}" (change)="requiredSet($event)"
                     value="pickup">Pick up Order</mat-radio-button>
-                <mat-radio-button (change)="requiredSet($event)" value="delivery">Delivery</mat-radio-button>
+                <mat-radio-button (change)="requiredSet($event)"
+                    disabled="{{!data.delivery || data.disableOrdering ||!canBeDelivered}}"
+                    value="delivery">Delivery</mat-radio-button>
                 <mat-radio-button disabled="{{!data.dineIn || data.disableOrdering}}" (change)="requiredSet($event)"
                     value="dineIn">Dine in restaurant</mat-radio-button>
             </mat-radio-group>

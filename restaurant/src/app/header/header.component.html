@@ -1,0 +1,128 @@
+<h1 *ngIf="isLoading">App Loading</h1>
+<div class="banner-container" *ngIf="!isLoading" [ngStyle]="{'background-color':colors.colorPrimary}">
+  <div class="inner-wrapper">
+    <div class="display-flex">
+      <div class="banner-img-part promo">
+        <picture>
+          <source height="250" srcset="{{restaurantData.imageCover}}" media="(max-width: 639.9px)" type="image/png">
+          <source height="250" srcset="{{restaurantData.imageCover}}" media="(max-width: 1024.9px)" type="image/png">
+          <source height="250" srcset="{{restaurantData.imageCover}}" media="(max-width: 1366px)" type="image/png">
+          <source height="250" srcset="{{restaurantData.imageCover}}" media="(max-width: 1920px)" type="image/png">
+          <source height="250" srcset="{{restaurantData.imageCover}}" media="(max-width: 2560px)" type="image/png">
+          <source height="500" srcset="{{restaurantData.imageCover}}" media="(min-width: 2560.1px)" type="image/png">
+          <img height="500" src="{{restaurantData.imageCover}}" alt="Banner Image">
+        </picture>
+      </div>
+      <div class="banner-text-part">
+        <div class="text-section">
+          <div class="banner-content">
+            <div class="banner-logo">
+              <picture>
+                <source height="120" srcset="{{restaurantData.image}}" media="(max-width: 1024.9px)" type="image/png">
+                <source height="150" srcset="{{restaurantData.image}}" media="(min-width: 1025px)" type="image/png">
+                <img height="150" src="{{restaurantData.image}}" alt="Logo">
+              </picture>
+            </div>
+          </div>
+          <div class="banner-content">
+            <p class="subhead-content" [ngStyle]="{'color':colors.colorPrimary}">{{restaurantData.description}}</p>
+          </div>
+        </div>
+        <button class="cart-btn" (click)="drawer.toggle();showFiller=!showFiller" [class.arabic]="language==='ar'">
+          {{'header.cart'| translate}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-container" *ngIf="!selectedBranch">
+    <mat-toolbar class="navbar" [ngStyle]="{'color':colors.colorTertiary}" color="primary">
+      <mat-toolbar-row class="row" [class.arabic]="language!=='ar'">
+        <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="menu-spacer"></span>
+        <div class="branch-header" fxShow="true" fxHide.lt-md>
+          <h2>Choose Branch</h2>
+        </div>
+
+        <button [class.arabic]="language!=='ar'" (click)="onChangeLanguage()" mat-fab extended color="primary"
+          [ngStyle]="{'background-color':colors.colorSecondary,'color':colors.colorTertiary}">
+          <mat-icon>language</mat-icon>
+          {{'header.lang-btn'| translate}}
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <app-footer class="footer"></app-footer>
+  </div>
+  <div class="navbar-container" *ngIf="selectedBranch===true">
+    <mat-toolbar class="navbar" color="primary">
+      <mat-toolbar-row class="row" [class.arabic]="language!=='ar'">
+        <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="menu-spacer"></span>
+        <div fxShow="true" fxHide.lt-md>
+          <a (click)="onPick(item)" *ngFor="let item of menuHeadings" mat-button>{{item}}</a>
+        </div>
+        <button [class.arabic]="language!=='ar'" (click)="onChangeLanguage()" mat-fab extended color="primary">
+          <mat-icon>language</mat-icon>
+          {{'header.lang-btn'| translate}}
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-sidenav-container class="sidenav-container" fxFlexFill>
+      <mat-sidenav class="sidenav" [ngStyle]="{'background-color':colors.colorSecondary,'color':colors.colorTertiary}"
+        [class.arabic]="language==='ar'" #sidenav>
+        <mat-nav-list class="nav-list">
+          <a class="item" [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}" (click)="onPick(item)" *ngFor="let item of menuHeadings" mat-button>{{item}}</a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlexFill>
+        <app-content [selectedBranch]="selectedBranch"></app-content>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+    <app-footer class="footer"></app-footer>
+  </div>
+  <mat-drawer-container class="example-container" [class.arabic]="language==='ar'" [class.hide]="!showFiller" autosize>
+    <mat-drawer #drawer class="example-sidenav" [class.arabic]="language==='ar'" mode="side">
+      <h1>{{'header.shopping-cart'|translate}}</h1>
+      <h3 class="selected-location" *ngIf="selectedBranch">{{branchData.name}}</h3>
+      <span class="after">Total: {{!!branchData?.total?branchData.total:0}} AED</span>
+      <div class="branch-card">
+        <h3 class="location-header" (click)="selectBranch(branches)">Click Here To Change Location <span
+            class="after"><mat-icon>explore</mat-icon></span></h3>
+        <h3 class="order-status" *ngIf="selectedBranch">Order Status: {{branchData.orderCondition.value}}</h3>
+        <h3 class="order-status" *ngIf="selectedBranch && branchData.orderCondition.value==='delivery'">Delivery:
+          {{branchData.delivery}}</h3>
+      </div>
+      <div class="orders-container" *ngIf="selectedItems.length>0">
+        <mat-card *ngFor="let item of selectedItems" class="cart-card">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{item.name}}</mat-card-title>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="quantity">
+              <div class="ctrl">
+                <button [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}"
+                  (click)="decrement(item)" mat-fab class="ctrl-btn" color="primary" aria-label="button">
+                  -
+                </button>
+                <input class="ctrl-input" disabled placeholder="Add Quantity" [value]="item.quantity">
+                <button [ngStyle]="{'background-color':colors.colorPrimary,'color':colors.colorTertiary}"
+                  (click)="increment(item)" mat-fab class="ctrl-btn" color="primary" aria-label="button">
+                  +
+                </button>
+              </div>
+            </div>
+            <span class="after">{{!!item?.total?item?.total:0}} AED</span>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="confirm-order" *ngIf="selectedItems.length>0 && selectedBranch">
+        <h3 class="location-header" (click)="confirmOrder()">Confirm Order <span
+            class="after"><mat-icon>check</mat-icon></span></h3>
+      </div>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
